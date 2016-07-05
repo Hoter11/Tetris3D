@@ -7,10 +7,82 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@color/whiteManhattan"
     tools:context="company.roc.tetris3d.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!" />
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_alignParentTop="true"
+        android:id="@+id/scrl"
+        android:fillViewport="true"
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/imageViewPauseTitle"
+                android:text="GAME NAME"
+                android:background="@color/redManhattan"
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="55dp"
+                android:contentDescription="pause"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true" />
+
+            <Button
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:id="@+id/btnPlay"
+                android:background="@drawable/playicon"
+                android:backgroundTint="@color/redManhattan"
+                android:layout_gravity="center_vertical"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="60dp"
+                android:layout_marginStart="60dp" />
+
+            <Button
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:id="@+id/btnConf"
+                android:background="@drawable/configicon"
+                android:backgroundTint="@color/blueManhattan"
+                android:layout_gravity="center_vertical"
+                android:layout_below="@+id/btnPlay"
+                android:layout_alignLeft="@+id/btnPlay"
+                android:layout_alignStart="@+id/btnPlay"
+                android:layout_marginTop="48dp" />
+
+            <Button
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:id="@+id/btnRank"
+                android:background="@drawable/trophyicon"
+                android:backgroundTint="@color/orangeManhattan"
+                android:layout_gravity="center_vertical"
+                android:layout_alignTop="@+id/btnPlay"
+                android:layout_toRightOf="@+id/btnPlay"
+                android:layout_toEndOf="@+id/btnPlay"
+                android:layout_marginLeft="60dp"
+                android:layout_marginStart="60dp" />
+
+            <Button
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:id="@+id/btnShop"
+                android:background="@drawable/shopicon"
+                android:backgroundTint="@color/greenManhattan"
+                android:layout_gravity="center_vertical"
+                android:layout_alignTop="@+id/btnConf"
+                android:layout_alignRight="@+id/btnRank"
+                android:layout_alignEnd="@+id/btnRank" />
+
+
+        </RelativeLayout>
+
+    </ScrollView>
 </RelativeLayout>
