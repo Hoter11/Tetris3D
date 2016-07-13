@@ -1,12 +1,14 @@
-package company.roc.tetris3d;
+package company.roc.tetris3d.View.Activities;
 
-import android.graphics.Color;
+import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+
+import company.roc.tetris3d.R;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,6 +26,35 @@ public class MainActivity extends AppCompatActivity {
         buttonEffect(btnRank);
         buttonEffect(btnConf);
         buttonEffect(btnShop);
+
+        btnPlay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(),GameActivity.class);
+                startActivity(i);
+            }
+        });
+        btnRank.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(),RankActivity.class);
+                startActivity(i);
+            }
+        });
+        btnConf.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(),ConfigActivity.class);
+                startActivity(i);
+            }
+        });
+        btnShop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(),ShopActivity.class);
+                startActivity(i);
+            }
+        });
 
     }
 
