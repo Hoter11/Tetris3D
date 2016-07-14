@@ -12,8 +12,8 @@ public class TetrisGame extends AndroidGame {
         return new LoadingScreen(this);
     }
 
-    @Override
+    /*@Override
     public void onBackPressed() {
         getCurrentScreen().backButton();
-    }
+    }*/
 }
