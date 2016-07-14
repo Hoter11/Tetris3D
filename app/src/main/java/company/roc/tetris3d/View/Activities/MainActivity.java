@@ -1,5 +1,14 @@
 package company.roc.tetris3d.View.Activities;
 
+/*
+    NOTES A COMENTAR AL ACABAR JOC:
+
+        - SEGUIT EL TUTORIAL PER A EL FRAMEWORK DEL JOC: http://www.kilobolt.com/unit-4-android-game-development.html
+
+
+ */
+
+
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.support.v7.app.AppCompatActivity;
