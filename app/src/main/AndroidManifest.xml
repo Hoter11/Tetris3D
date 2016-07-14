@@ -23,13 +23,8 @@
         <activity android:name=".View.Activities.GameActivity" />
         <activity android:name=".View.Activities.ShopActivity" />
         <activity android:name=".View.Activities.RankActivity" />
-        <activity android:name=".View.Activities.ConfigActivity"></activity>
-        <activity
-            android:name="View.TetrisGame"
-            android:configChanges="keyboard|keyboardHidden|orientation"
-            android:label="GravityTetris"
-            android:screenOrientation="landscape" >
-        </activity>
+        <activity android:name=".View.Activities.ConfigActivity" />
+        <activity android:name=".View.TetrisGame" />
     </application>
 
 </manifest>
