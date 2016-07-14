@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.Button;
 
 import company.roc.tetris3d.R;
+import company.roc.tetris3d.View.TetrisGame;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         btnPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(),GameActivity.class);
+                Intent i = new Intent(getApplicationContext(),TetrisGame.class);
                 startActivity(i);
             }
         });

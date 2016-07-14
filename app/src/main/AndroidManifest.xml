@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="company.roc.tetris3d">
 
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+
     <application
         android:name=".Controller.Controller"
         android:allowBackup="true"
@@ -20,6 +24,12 @@
         <activity android:name=".View.Activities.ShopActivity" />
         <activity android:name=".View.Activities.RankActivity" />
         <activity android:name=".View.Activities.ConfigActivity"></activity>
+        <activity
+            android:name="View.TetrisGame"
+            android:configChanges="keyboard|keyboardHidden|orientation"
+            android:label="GravityTetris"
+            android:screenOrientation="landscape" >
+        </activity>
     </application>
 
 </manifest>
