@@ -26,7 +26,7 @@ public class MainMenuScreen extends Screen {
         for (int i = 0; i < len; i++) {
             Input.TouchEvent event = touchEvents.get(i);
             if (event.type == TouchEvent.TOUCH_UP) {
-                if (inBounds(event, 0, 0, 250, 250)) {
+                if (inBounds(event, g.getHeight()/2, g.getWidth()/2, 250, 250)) {
                     //START GAME
                     game.setScreen(new GameScreen(game));
                 }
@@ -47,7 +47,7 @@ public class MainMenuScreen extends Screen {
     @Override
     public void paint(float deltaTime) {
         Graphics g = game.getGraphics();
-        g.drawImage(Assets.menu, 0, 0);
+        g.drawImage(Assets.menu, g.getHeight()/2, g.getWidth()/2);
     }
 
 

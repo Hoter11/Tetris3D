@@ -18,7 +18,7 @@ import android.view.View;
 import android.widget.Button;
 
 import company.roc.tetris3d.R;
-import company.roc.tetris3d.View.TetrisGame;
+import company.roc.tetris3d.View.GameScreen;
 
 public class MainActivity extends AppCompatActivity {
 

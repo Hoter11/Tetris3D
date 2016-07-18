@@ -5,7 +5,15 @@ import java.util.List;
 
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
+import android.os.Bundle;
+import android.view.DragEvent;
 
+import company.roc.tetris3d.Controller.Controller;
+import company.roc.tetris3d.R;
 import company.roc.tetris3d.View.Framework.Game;
 import company.roc.tetris3d.View.Framework.Graphics;
 import company.roc.tetris3d.View.Framework.Image;
@@ -15,7 +23,13 @@ import company.roc.tetris3d.View.Framework.Input.TouchEvent;
 /**
  * Created by roc on 14/07/16.
  */
-public class GameScreen extends Screen {
+public class GameScreen extends Screen implements SensorEventListener{
+
+    private static final int LEFT = 50;
+    private static final int RIGHT = 550;
+    private static final int TOP = 100;
+    private static final int BOTTOM = 1230;
+
     enum GameState {
         Ready, Running, Paused, GameOver
     }
@@ -39,6 +53,10 @@ public class GameScreen extends Screen {
         paint.setTextAlign(Paint.Align.CENTER);
         paint.setAntiAlias(true);
         paint.setColor(Color.WHITE);
+
+        //Sensor management
+        sensorManager=(SensorManager) Controller.getContext().getSystemService(Controller.getContext().SENSOR_SERVICE);
+        sensorManager.registerListener(this, sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
 
     }
 
@@ -83,7 +101,8 @@ public class GameScreen extends Screen {
             TouchEvent event = touchEvents.get(i);
 
             if (event.type == TouchEvent.TOUCH_DOWN) {
-
+                System.out.println("X: "+event.x+" | Y: "+event.y);
+                System.out.println("Values: "+ax+" "+ay+" "+az);
                 if (event.x < 640) {
                     // Move left.
                 }
@@ -181,10 +200,30 @@ public class GameScreen extends Screen {
     private void drawReadyUI() {
         Graphics g = game.getGraphics();
 
-        g.drawARGB(155, 0, 0, 0);
-        g.drawString("Tap each side of the screen to move in that direction.",
-                640, 300, paint);
+        g.clearScreen(Controller.getContext().getResources().getColor(R.color.whiteManhattan));
 
+        if (Controller.getContext().getResources().getConfiguration().orientation == Controller.getContext().getResources().getConfiguration().ORIENTATION_PORTRAIT) {
+            g.drawRect(575, 900, 200, 200, Color.GREEN);
+            g.drawRect(575, 600, 200, 200, Color.BLUE);
+            g.drawRect(575, 300, 200, 200, Color.RED);
+
+            //Vertical lines
+            g.drawLine(LEFT, TOP, LEFT, BOTTOM, Color.BLACK);
+            g.drawLine(RIGHT, TOP, RIGHT, BOTTOM, Color.BLACK);
+            //Horizontal lines
+            g.drawLine(LEFT, TOP, RIGHT, TOP, Color.BLACK);
+            g.drawLine(LEFT, BOTTOM, RIGHT, BOTTOM, Color.BLACK);
+        }else{
+            g.drawRect(300, 575, 200, 200, Color.GREEN);
+            g.drawRect(600, 575, 200, 200, Color.BLUE);
+            g.drawRect(900, 575, 200, 200, Color.RED);
+            //Vertical lines
+            g.drawLine(TOP, RIGHT, TOP, LEFT, Color.BLACK);
+            g.drawLine(BOTTOM, RIGHT, BOTTOM, LEFT, Color.BLACK);
+            //Horizontal lines
+            g.drawLine(TOP, RIGHT, BOTTOM, RIGHT, Color.BLACK);
+            g.drawLine(TOP, LEFT, BOTTOM, LEFT, Color.BLACK);
+        }
     }
 
     private void drawRunningUI() {
@@ -226,5 +265,23 @@ public class GameScreen extends Screen {
     @Override
     public void backButton() {
         pause();
+    }
+
+
+    //********************************************** SENSOR MANAGEMENT *********************************************************//
+    private SensorManager sensorManager;
+    double ax,ay,az;   // these are the acceleration in x,y and z axis
+
+    @Override
+    public void onAccuracyChanged(Sensor arg0, int arg1) {
+    }
+
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        if (event.sensor.getType()==Sensor.TYPE_ACCELEROMETER){
+            ax=event.values[0];
+            ay=event.values[1];
+            az=event.values[2];
+        }
     }
 }
