@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.drawable.Drawable;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -13,6 +14,7 @@ import android.os.Bundle;
 import android.view.DragEvent;
 
 import company.roc.tetris3d.Controller.Controller;
+import company.roc.tetris3d.Model.GameData;
 import company.roc.tetris3d.R;
 import company.roc.tetris3d.View.Framework.Game;
 import company.roc.tetris3d.View.Framework.Graphics;
@@ -26,15 +28,16 @@ import company.roc.tetris3d.View.Framework.Input.TouchEvent;
 public class GameScreen extends Screen implements SensorEventListener{
 
     private static final int LEFT = 50;
-    private static final int RIGHT = 550;
+    private static final int RIGHT = 500;
     private static final int TOP = 100;
-    private static final int BOTTOM = 1230;
+    private static final int BOTTOM = 1160;
 
     enum GameState {
         Ready, Running, Paused, GameOver
     }
 
     GameState state = GameState.Ready;
+    GameData gameData;
 
     // Variable Setup
     // You would create game objects here.
@@ -46,7 +49,7 @@ public class GameScreen extends Screen implements SensorEventListener{
         super(game);
 
         // Initialize game objects here
-
+        gameData = new GameData();
         // Defining a paint object
         paint = new Paint();
         paint.setTextSize(30);
@@ -203,16 +206,22 @@ public class GameScreen extends Screen implements SensorEventListener{
         g.clearScreen(Controller.getContext().getResources().getColor(R.color.whiteManhattan));
 
         if (Controller.getContext().getResources().getConfiguration().orientation == Controller.getContext().getResources().getConfiguration().ORIENTATION_PORTRAIT) {
+            //Pieces to use
             g.drawRect(575, 900, 200, 200, Color.GREEN);
             g.drawRect(575, 600, 200, 200, Color.BLUE);
             g.drawRect(575, 300, 200, 200, Color.RED);
+            //Map
+            //g.drawRect(LEFT,TOP,RIGHT,BOTTOM,Color.BLACK);
+            //Quads
+            updateMap(g);
 
+            /*
             //Vertical lines
             g.drawLine(LEFT, TOP, LEFT, BOTTOM, Color.BLACK);
             g.drawLine(RIGHT, TOP, RIGHT, BOTTOM, Color.BLACK);
             //Horizontal lines
             g.drawLine(LEFT, TOP, RIGHT, TOP, Color.BLACK);
-            g.drawLine(LEFT, BOTTOM, RIGHT, BOTTOM, Color.BLACK);
+            g.drawLine(LEFT, BOTTOM, RIGHT, BOTTOM, Color.BLACK);*/
         }else{
             g.drawRect(300, 575, 200, 200, Color.GREEN);
             g.drawRect(600, 575, 200, 200, Color.BLUE);
@@ -224,6 +233,7 @@ public class GameScreen extends Screen implements SensorEventListener{
             g.drawLine(TOP, RIGHT, BOTTOM, RIGHT, Color.BLACK);
             g.drawLine(TOP, LEFT, BOTTOM, LEFT, Color.BLACK);
         }
+
     }
 
     private void drawRunningUI() {
@@ -267,6 +277,31 @@ public class GameScreen extends Screen implements SensorEventListener{
         pause();
     }
 
+    public void updateMap(Graphics g){
+        String cell;
+        for (int j=0; j < 21; j++){
+            for (int i=0; i < 9; i++){
+                cell = gameData.getMap()[j][i];
+                switch(cell){
+                    case "w":
+                        g.drawRect(LEFT+5+i*55,TOP+5+j*55,50,50,Color.BLACK);
+                        break;
+                    case "r":
+                        g.drawRect(LEFT+5+i*55,TOP+5+j*55,50,50,Color.RED);
+                        break;
+                    case "b":
+                        g.drawRect(LEFT+5+i*55,TOP+5+j*55,50,50,Color.BLUE);
+                        break;
+                    case "g":
+                        g.drawRect(LEFT+5+i*55,TOP+5+j*55,50,50,Color.GREEN);
+                        break;
+                }
+
+
+            }
+        }
+    }
+
 
     //********************************************** SENSOR MANAGEMENT *********************************************************//
     private SensorManager sensorManager;
@@ -282,6 +317,15 @@ public class GameScreen extends Screen implements SensorEventListener{
             ax=event.values[0];
             ay=event.values[1];
             az=event.values[2];
+            if (ax < -5){
+                gameData.setCel(16,6,"r");
+                gameData.printMap();
+            }
+            else if (ax > 5){
+                gameData.setCel(3,6,"b");
+                gameData.printMap();
+            }
+
         }
     }
 }
